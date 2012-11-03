@@ -12,7 +12,7 @@
 	<script type="text/javascript">
       var baseUrl = "http://localhost/buscador"
       $(document).bind("mobileinit", function(){
-        $.mobile.defaultDialogTransition = "slide"
+        $.mobile.defaultDialogTransition = "slide" 
       });
     </script>  
 	<script type="text/javascript" src="jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
@@ -23,11 +23,11 @@
 <div data-role="page" data-theme="b" id="SearchPage">
 
 	<div data-role="header">
-		<h1 style="font-size:14px" class="i18n">Bahá'í Writings <br />Search</h1>
+		<h1 style="font-size:14px" class="i18n">Bahá'í Writings <br />Search</h1> 
 	</div><!-- /header -->
 
 	<div data-role="content">
-		<form id="searchForm" action="" method="get" onsubmit="startSearch();return false;">
+		<form id="searchForm" action="" method="get" onsubmit="startSearch();return false;" data-ajax="false">
 			<div data-role="fieldcontain">
 			    <label for="name" class="i18n">Search for a word or phrase:</label>
 			    <input type="search" name="q" id="SearchQuery" value=""  />

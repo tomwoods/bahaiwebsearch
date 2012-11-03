@@ -1,11 +1,12 @@
 var currentSearchResults;
 function startSearch(){
-    //$.mobile.hidePageLoadingMsg();
+    $.mobile.loading( 'show');
     //fetch data
     $.ajax(baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=search&q="+encodeURI($("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")),{
         //url: ,
         dataType: 'json',
         success: function(data, textStatus, xhr){
+            $.mobile.loading( 'show');
             //populate folder results page
             currentSearchResults = data;
             ResultsContentHtml = '<ul data-role="listview" class="ui-listview" role="listbox">';
@@ -35,15 +36,15 @@ function startSearch(){
             }
 
             ResultsContentHtml += "</ul>";
-            $('#FoldersContent').html(ResultsContentHtml);
-            //hide loading
-            $.mobile.hidePageLoadingMsg();
-            //go to results page
-            $.mobile.changePage($("#FoldersPage"),{
-                allowSamePageTransition:true,
-                showLoadMsg:true
-            },false,true);
-
+            $('#FoldersContent').html(ResultsContentHtml).ready(function(){console.log("ready!")
+                //go to results page
+                $.mobile.changePage($("#FoldersPage"),{
+                    allowSamePageTransition:true,
+                    showLoadMsg:true
+                },false,true);
+                //hide loading
+                $.mobile.hidePageLoadingMsg();
+            });
         }
     });
 }
@@ -142,13 +143,13 @@ i18n.strings["original"] = {}
 //Settings
 i18n.strings["spanish"] = {
     "Search for a word or phrase:":"Buscar una palabra o frase:",
-    "Bahá'í Writings <br>Search":"Buscador <br>Escritos Bahá'ís",
+    "Bahï¿½'ï¿½ Writings <br>Search":"Buscador <br>Escritos Bahï¿½'ï¿½s",
     "Language":"Idioma",
     "Search":"Buscar",
     "Options":"Opciones",
     "Results":"Resultados",
     "Context":"Contexto",
-    "Back":"Atrás",
+    "Back":"Atrï¿½s",
     "Close":"Cerrar",
     "Search":"Buscar",
     "Sentence":"Frases Encontradas",
@@ -157,7 +158,7 @@ i18n.strings["spanish"] = {
 };
 i18n.strings["english"] = {
     "Search for a word or phrase:":"Search for a word or phrase:",
-    "Bahá'í Writings <br>Search":"Bahá'í Writings <br>Search",
+    "Bahï¿½'ï¿½ Writings <br>Search":"Bahï¿½'ï¿½ Writings <br>Search",
     "Language":"Language",
     "Search":"Search",
     "Options":"Options",
@@ -172,14 +173,14 @@ i18n.strings["english"] = {
 };
 i18n.strings["german"] = {
     "Search for a word or phrase:": "Nach einem Wort oder Satz suchen:",
-        "Bahá'í Writings <br>Search": "Bahá'í-Schriften <br>Suchen",
+        "Bahï¿½'ï¿½ Writings <br>Search": "Bahï¿½'ï¿½-Schriften <br>Suchen",
         "Language": "Sprache",
         "Search": "Suchen",
         "Options": "Optionen",
         "Results": "Suchergebnisse",
         "Context": "Kontext",
-        "Back": "Zurück",
-        "Close": "Schließen",
+        "Back": "Zurï¿½ck",
+        "Close": "Schlieï¿½en",
         "Search": "Suchen",
         "Sentence": "Satz",
         "Documents": "Dokumente",
