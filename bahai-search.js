@@ -1,6 +1,6 @@
 var currentSearchResults;
 function startSearch(){
-    $.mobile.hidePageLoadingMsg();
+    //$.mobile.hidePageLoadingMsg();
     //fetch data
     $.ajax(baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=search&q="+encodeURI($("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")),{
         //url: ,
@@ -39,7 +39,10 @@ function startSearch(){
             //hide loading
             $.mobile.hidePageLoadingMsg();
             //go to results page
-            $.mobile.changePage($("#FoldersPage"),null,false,true);
+            $.mobile.changePage($("#FoldersPage"),{
+                allowSamePageTransition:true,
+                showLoadMsg:true
+            },false,true);
 
         }
     });
@@ -54,7 +57,7 @@ function displayDocumentsFor(FolderId){
     //go to results page
     $.mobile.changePage($("#DocumentsPage"),null,false,true);
 }
-function contentForDocuments(document){
+function contentForDocuments(document){    
     fragmentText = '';
     if(currentSearchResults.fragments[document.id].count == 1){
         onClickFunc = 'loadContext(\''+currentSearchResults.fragments[document.id]+'\')'
@@ -100,7 +103,7 @@ function displayMatchesFor(DocumentId){
 }
 function loadContext(FoundParagraphID,Fragment){
     //console.debug(FoundParagraphID,Fragment)
-    $.mobile.hidePageLoadingMsg();
+    $.mobile.loading( 'show');
     Fragment=unescape(Fragment);
     //fetch
     $.get(
