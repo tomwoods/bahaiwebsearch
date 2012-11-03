@@ -18,3 +18,6 @@ p{
 .ui-li-divider .ui-li-count, .ui-li-static .ui-li-count {
     right: 35px;
 }
+#FragmentsPage li.ui-btn{
+     padding: 15px;
+}

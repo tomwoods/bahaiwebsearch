@@ -22,8 +22,19 @@
 
 <div data-role="page" data-theme="b" id="SearchPage">
 
-	<div data-role="header">
-		<h1 style="font-size:14px" class="i18n">Bahá'í Writings <br />Search</h1> 
+	<div data-role="header">        
+		<h1 style="font-size:14px" class="i18n">Bahá'í Writings <br />Search</h1>
+        <a data-transition="fade" data-inline="true" data-role="button" data-rel="popup" href="#popupMenu" data-icon="gear" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b" title="Options"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Options</span><span class="ui-icon ui-icon-gear ui-icon-shadow">&nbsp;</span></span></a>
+        <div id="popupMenu-popup">
+            <div data-theme="a" id="popupMenu" data-role="popup" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin" data-dismissable="true">
+                <ul data-theme="a" style="min-width:210px;" data-inset="true" data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-theme="a" data-role="divider" class="ui-li ui-li-static ui-btn-up-a ui-corner-top">Options</li>
+                    <li style="padding: 0px;" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-b"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="history.html" class="ui-link-inherit i18n">Search History</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                    <li style="padding: 0px;" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-b"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="favorites.html" class="ui-link-inherit i18n">Favorites</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                    <li style="padding: 0px;" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-up-b ui-btn-icon-right ui-li-has-arrow ui-li ui-corner-bottom ui-li-last"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="configuration.html" class="ui-link-inherit i18n">Configuration</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+                </ul>
+            </div>
+        </div>
 	</div><!-- /header -->
 
 	<div data-role="content">
@@ -33,18 +44,6 @@
 			    <input type="search" name="q" id="SearchQuery" value=""  />
 			</div>	
 			<button type="submit" class="ui-btn-hidden i18n"  tabindex="-1" id="searchButton">Search</button>
-			<br />
-            <div data-role="collapsible" data-collapsed="true" data-theme="c">
-                <h3><span class="i18n">Options</span></h3>
-    			<div data-role="fieldcontain">
-    				<label for="select-choice-1" class="select i18n">Language</label>
-    				<select name="select-choice-1" id="select-choice-1" onchange="setLanguage(this.value)">
-    					<option value="english">English</option>
-    					<option value="spanish">Español</option>
-                        <option value="german">Deutsch</option>
-    				</select>
-    			</div>
-    		</div>
 		</form>
 	</div><!-- /content -->
 
@@ -57,6 +56,7 @@
 <div data-role="page" data-theme="b" id="FoldersPage">
 
 	<div data-role="header">
+        <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Results</h1>
 	</div><!-- /header -->
 
@@ -76,6 +76,7 @@
 <div data-role="page" data-theme="b" id="DocumentsPage">
 
 	<div data-role="header">
+        <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Documents</h1>
 	</div><!-- /header -->
 
@@ -95,6 +96,7 @@
 <div data-role="page" data-theme="b" id="FragmentsPage">
 
 	<div data-role="header">
+        <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Sentence</h1>
 	</div><!-- /header -->
 
@@ -113,6 +115,7 @@
 <div data-role="page" data-theme="b" id="FragmentContextPage">
 
 	<div data-role="header">
+        <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Context</h1>
 	</div><!-- /header -->
 
@@ -125,9 +128,7 @@
 		<h4 style="font-size:12px">Results from <br />BahaiResearch.Com</h4>
 	</div><!-- /header -->
 </div><!-- /page -->
-<script type="text/javascript">
-    setLanguage(currentLanguage);
-    $("#select-choice-1").val(currentLanguage)
-</script>
+
+<script type="text/javascript" src="i18n.js"></script>
 </body>
 </html>
