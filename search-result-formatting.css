@@ -1,0 +1,20 @@
+.ptf{
+    background-color:#E6E6E6;
+    padding: 7px;
+    border-left: #CFCFCF solid 3px;
+}
+.foundterm{
+    background-color:#FAFFBF;
+}
+p{
+    margin: 10px;
+}
+.ptf p{
+    margin: 0px;
+}
+.ui-li-desc {
+    white-space:normal;
+}
+.ui-li-divider .ui-li-count, .ui-li-static .ui-li-count {
+    right: 35px;
+}
