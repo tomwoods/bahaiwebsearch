@@ -143,13 +143,13 @@ i18n.strings["original"] = {}
 //Settings
 i18n.strings["spanish"] = {
     "Search for a word or phrase:":"Buscar una palabra o frase:",
-    "Bah�'� Writings <br>Search":"Buscador <br>Escritos Bah�'�s",
+    "Bahá'í Writings <br>Search":"Buscador <br>Escritos Bahá'ís",
     "Language":"Idioma",
     "Search":"Buscar",
     "Options":"Opciones",
     "Results":"Resultados",
     "Context":"Contexto",
-    "Back":"Atr�s",
+    "Back":"Atrás",
     "Close":"Cerrar",
     "Search":"Buscar",
     "Sentence":"Frases Encontradas",
@@ -158,7 +158,7 @@ i18n.strings["spanish"] = {
 };
 i18n.strings["english"] = {
     "Search for a word or phrase:":"Search for a word or phrase:",
-    "Bah�'� Writings <br>Search":"Bah�'� Writings <br>Search",
+    "Bahá'í Writings <br>Search":"Bahá'í Writings <br>Search",
     "Language":"Language",
     "Search":"Search",
     "Options":"Options",
@@ -173,14 +173,14 @@ i18n.strings["english"] = {
 };
 i18n.strings["german"] = {
     "Search for a word or phrase:": "Nach einem Wort oder Satz suchen:",
-        "Bah�'� Writings <br>Search": "Bah�'�-Schriften <br>Suchen",
+        "Bahá'í Writings <br>Search": "Bahá'í-Schriften <br>Suchen",
         "Language": "Sprache",
         "Search": "Suchen",
         "Options": "Optionen",
         "Results": "Suchergebnisse",
         "Context": "Kontext",
-        "Back": "Zur�ck",
-        "Close": "Schlie�en",
+        "Back": "Zuráck",
+        "Close": "Schlieáen",
         "Search": "Suchen",
         "Sentence": "Satz",
         "Documents": "Dokumente",
