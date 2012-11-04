@@ -128,7 +128,7 @@ function loadContext(FoundParagraphID,Fragment){
                 
                 savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")].push({
                     query:$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""),
-                    text:$(".ptf").html(),
+                    text:$('#FragmentContext').html(),
                     paragraphID:FoundParagraphID,
                     date:(new Date()).toString(),
                     folderTitle:currentSearchResults.folders[currentFolderId].title,
