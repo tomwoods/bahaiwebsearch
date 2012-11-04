@@ -5,7 +5,7 @@
  * Then add the text to be translated to each of the available languates.
  */
 // handle page load
-$('div').live('pageshow',function(event, ui){console.log("language loaded")
+$('div').live('pageshow',function(event, ui){
     i18n.onPageLoad()
     $("#select-choice-1").val(i18n.currentLanguage)
 });

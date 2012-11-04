@@ -36,7 +36,7 @@ function startSearch(){
             }
 
             ResultsContentHtml += "</ul>";
-            $('#FoldersContent').html(ResultsContentHtml).ready(function(){console.log("ready!")
+            $('#FoldersContent').html(ResultsContentHtml).ready(function(){
                 //go to results page
                 $.mobile.changePage($("#FoldersPage"),{
                     allowSamePageTransition:true,
@@ -116,17 +116,51 @@ function loadContext(FoundParagraphID,Fragment){
             //go to results page
             $.mobile.changePage($("#FragmentContextPage"),null,false,true);
             $('html,body').animate({ scrollTop: $("a#SEARCHRESULT").offset().top }, { duration: 'slow', easing: 'swing'});
-            $(".ptf").append("<a href='page.html' class='saveFavorite' data-role='button' data-theme='b'  data-iconpos='right' data-icon='star'>Save to Favorites</a>");
+            //$(".ptf").append("<a href='javascript:void(0)' class='saveFavorite ui-icon-star' data-role='button' data-inline='true' data-theme='b'  data-iconpos='left' data-icon='star'>Save to Favorites</a>");
+            //$(".ptf").trigger('create')
             $(".saveFavorite").click(function(e){
                 savedTexts = JSON.parse(window.localStorage.getItem("savedTexts"));
                 if(!savedTexts)
                     savedTexts = []
+                if(typeof savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")] == "undefined")
+                    savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")] = []
                 $(this).remove()
-                savedTexts.push({query:$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""),text:$(".ptf").html()})
+                savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")].push({
+                    query:$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""),
+                    text:$(".ptf").html(),
+                    date:(new Date()).toString()
+                })
                 window.localStorage.setItem("savedTexts",JSON.stringify(savedTexts));
+                $( "#messagePopup" ).html("Saved!").popup( "open" ).delay(1000).hide()
                 e.preventDefault()
             })
             //$('#FragmentContext').append('<a href="#" data-role="button" data-inline="true" data-theme="b">Save to Favorites</a>');
         }
     );
+}
+/* Favorites Page */
+$('div').live('pageshow',function(event, ui){
+    if($("#favorites").length){
+        savedFavorites = window.localStorage.getItem("savedTexts");
+        console.log(savedFavorites)
+    }
+});
+
+// format date, taken from http://stackoverflow.com/questions/9050763/format-date-in-jquery
+function getISODateTime(d){
+    // padding function
+    var s = function(a,b){return(1e15+a+"").slice(-b)};
+
+    // default date parameter
+    if (typeof d === 'undefined'){
+        d = new Date();
+    };
+
+    // return ISO datetime
+    return d.getFullYear() + '-' +
+        s(d.getMonth()+1,2) + '-' +
+        s(d.getDate(),2) + ' ' +
+        s(d.getHours(),2) + ':' +
+        s(d.getMinutes(),2) + ':' +
+        s(d.getSeconds(),2);
 }
