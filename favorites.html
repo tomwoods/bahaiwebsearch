@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Bahá'í Writings - Favorites</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<!--<script type="text/javascript" charset="utf-8" src="phonegap.0.9.4.js"></script>--> 
+	<link rel="stylesheet" href="jquery.mobile-1.2.0/jquery.mobile.structure-1.2.0.min.css" />
+    <link rel="stylesheet" href="bahai-search.min.css" />
+    <link rel="stylesheet" href="search-result-formatting.css" />
+	<script type="text/javascript" src="jquery.mobile-1.2.0/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+      var baseUrl = "http://localhost/buscador"
+      $(document).bind("mobileinit", function(){
+        $.mobile.defaultDialogTransition = "slide" 
+      });
+    </script>  
+	<script type="text/javascript" src="jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script type="text/javascript" src="bahai-search.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" data-theme="b" id="Configuration">
+
+	<div data-role="header">        
+		<h1 style="font-size:14px" class="i18n">Favorites</h1>
+        <a data-role="button" data-rel="back" data-icon="arrow-l" href="#"  class=" ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Back"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
+        <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+        <div id="favorites">No texts have been saved yet to your Favorites.</div>
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed" data-id="navigationFooter">
+       <div data-role="navbar" >
+            <ul>
+                <li><a href="index.html" data-icon="search" data-theme="c">Search</a></li>
+                <li><a href="favorites.html" data-icon="star" data-theme="c">Favorites</a></li>
+                <li><a href="history.html" data-icon="back" data-theme="c">Search History</a></li>
+                <li><a href="configuration.html" data-icon="gear" data-theme="c">Configuration</a></li>
+            </ul>
+        </div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+<script type="text/javascript" src="i18n.js"></script>
+</body>
+</html>
