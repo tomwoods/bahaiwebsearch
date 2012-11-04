@@ -1,4 +1,4 @@
-var currentSearchResults;
+var currentSearchResults, currentFolder, currentDocument;
 function startSearch(){
     $.mobile.loading( 'show');
     //fetch data
@@ -49,6 +49,7 @@ function startSearch(){
     });
 }
 function displayDocumentsFor(FolderId){
+    currentFolderId = FolderId
     ResultsContentHtml = '<ul data-role="listview" class="ui-listview" role="listbox">';
     $.each(currentSearchResults.documents[FolderId],function(key,document){
         ResultsContentHtml += contentForDocuments(document);
@@ -58,7 +59,8 @@ function displayDocumentsFor(FolderId){
     //go to results page
     $.mobile.changePage($("#DocumentsPage"),null,false,true);
 }
-function contentForDocuments(document){    
+function contentForDocuments(document){
+    currentDocument = document
     fragmentText = '';
     if(currentSearchResults.fragments[document.id].count == 1){
         onClickFunc = 'loadContext(\''+currentSearchResults.fragments[document.id]+'\')'
@@ -111,27 +113,32 @@ function loadContext(FoundParagraphID,Fragment){
         baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=paragraph&q="+encodeURI($("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""))+"&FoundParagraphID="+FoundParagraphID+"&Fragment="+Fragment,
         function(data){
             $('#FragmentContext').html(data); //update content
+            $(".saveFavorite").show(); //show the save to Favorites button
             //hide loading
             $.mobile.hidePageLoadingMsg()
             //go to results page
             $.mobile.changePage($("#FragmentContextPage"),null,false,true);
-            $('html,body').animate({ scrollTop: $("a#SEARCHRESULT").offset().top }, { duration: 'slow', easing: 'swing'});
-            //$(".ptf").append("<a href='javascript:void(0)' class='saveFavorite ui-icon-star' data-role='button' data-inline='true' data-theme='b'  data-iconpos='left' data-icon='star'>Save to Favorites</a>");
-            //$(".ptf").trigger('create')
+            //Save to favorites functionality
             $(".saveFavorite").click(function(e){
-                savedTexts = JSON.parse(window.localStorage.getItem("savedTexts"));
+                var savedTexts = JSON.parse(window.localStorage.getItem("savedTexts"));
                 if(!savedTexts)
-                    savedTexts = []
+                    savedTexts = {}
                 if(typeof savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")] == "undefined")
                     savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")] = []
-                $(this).remove()
+                
                 savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")].push({
                     query:$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""),
                     text:$(".ptf").html(),
-                    date:(new Date()).toString()
+                    paragraphID:FoundParagraphID,
+                    date:(new Date()).toString(),
+                    folderTitle:currentSearchResults.folders[currentFolderId].title,
+                    document:currentDocument.title
                 })
                 window.localStorage.setItem("savedTexts",JSON.stringify(savedTexts));
-                $( "#messagePopup" ).html("Saved!").popup( "open" ).delay(1000).hide()
+                $( "#messagePopup" ).html("Saved!").popup( "open" )
+                setTimeout(function(){$( "#messagePopup" ).delay(1000).popup( "close" )},1000);
+                // delete the save button
+                $(this).hide()
                 e.preventDefault()
             })
             //$('#FragmentContext').append('<a href="#" data-role="button" data-inline="true" data-theme="b">Save to Favorites</a>');
