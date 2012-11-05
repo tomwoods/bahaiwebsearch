@@ -24,3 +24,6 @@ p{
 #messagePopup{
     padding:15px 30px
 }
+#DocumentView .ui-content{
+    background-color:white;
+}

@@ -1,4 +1,4 @@
-var currentSearchResults, currentFolder, currentDocument;
+var currentSearchResults, currentFolder, currentDocumentTitle;
 function startSearch(){
     $.mobile.loading( 'show');
     //fetch data
@@ -60,19 +60,19 @@ function displayDocumentsFor(FolderId){
     $.mobile.changePage($("#DocumentsPage"),null,false,true);
 }
 function contentForDocuments(document){
-    currentDocument = document
     fragmentText = '';
     if(currentSearchResults.fragments[document.id].count == 1){
-        onClickFunc = 'loadContext(\''+currentSearchResults.fragments[document.id]+'\')'
+        onClickFunc = 'loadContext(\''+escape(document.title)+'\',\''+currentSearchResults.fragments[document.id]+'\')'
         $.each(currentSearchResults.fragments[document.id],function(key,fragment){
             if(key=="count") return true;
             onClickFunc = 'loadContext(\''
+                +escape(document.title)+'\',\''
                 +fragment.foundparagraphid+'\',\''
                 +escape(fragment.Fragment)+'\')';
             fragmentText = '<p class="ui-li-desc">'+fragment.title+'</p>'
         })
     } else{
-        onClickFunc = 'displayMatchesFor(\''+document.id+'\')'
+        onClickFunc = 'displayMatchesFor(\''+escape(document.title)+'\',\''+document.id+'\')'
     }
     currentCount = (currentSearchResults.fragments[document.id].count>1)?currentSearchResults.fragments[document.id].count:null;
     return '<li role="option" tabindex="0" data-theme="c" class="ui-btn ui-btn-icon-right ui-li ui-btn-up-c" style="padding: 0px;" onclick="'+onClickFunc+'">'
@@ -84,12 +84,13 @@ function contentForDocuments(document){
         +'<span class="ui-icon ui-icon-arrow-r"></span>'
         +'</li>';
 }
-function displayMatchesFor(DocumentId){
+function displayMatchesFor(documentTitle,DocumentId){
     ResultsContentHtml = '<ul data-role="listview" class="ui-listview" role="listbox">';
     $.each(currentSearchResults.fragments[DocumentId],function(key,fragment){
         if(key=="count") return true;
         ResultsContentHtml = ResultsContentHtml
             +'<li role="option" tabindex="0" data-theme="c" class="ui-btn ui-btn-icon-right ui-li ui-btn-up-c" onclick="loadContext(\''
+                +documentTitle+'\',\''
                 +fragment.foundparagraphid+'\',\''
                 +escape(fragment.Fragment)+'\')">'
             +'<div class="ui-btn-inner"><div class="ui-btn-text">'
@@ -104,8 +105,8 @@ function displayMatchesFor(DocumentId){
     //go to results page
     $.mobile.changePage($("#FragmentsPage"),null,false,true);
 }
-function loadContext(FoundParagraphID,Fragment){
-    //console.debug(FoundParagraphID,Fragment)
+function loadContext(documentTitle,FoundParagraphID,Fragment){
+    currentDocumentTitle = unescape(documentTitle)
     $.mobile.loading( 'show');
     Fragment=unescape(Fragment);
     //fetch
@@ -114,6 +115,7 @@ function loadContext(FoundParagraphID,Fragment){
         function(data){
             $('#FragmentContext').html(data); //update content
             $(".saveFavorite").show(); //show the save to Favorites button
+            $(".saveFavorite").unbind("click")
             //hide loading
             $.mobile.hidePageLoadingMsg()
             //go to results page
@@ -132,8 +134,9 @@ function loadContext(FoundParagraphID,Fragment){
                     paragraphID:FoundParagraphID,
                     date:(new Date()).toString(),
                     folderTitle:currentSearchResults.folders[currentFolderId].title,
-                    document:currentDocument.title
+                    document:currentDocumentTitle
                 })
+                console.log(savedTexts.length, savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")])
                 window.localStorage.setItem("savedTexts",JSON.stringify(savedTexts));
                 $( "#messagePopup" ).html("Saved!").popup( "open" )
                 setTimeout(function(){$( "#messagePopup" ).delay(1000).popup( "close" )},1000);
@@ -146,13 +149,43 @@ function loadContext(FoundParagraphID,Fragment){
     );
 }
 /* Favorites Page */
+// on load
 $('div').live('pageshow',function(event, ui){
-    if($("#favorites").length){
-        savedFavorites = window.localStorage.getItem("savedTexts");
-        console.log(savedFavorites)
+    if($("#Collections #favorites").length){//is the favorites page
+        savedFavorites = JSON.parse(window.localStorage.getItem("savedTexts"));
+        if(!savedFavorites)
+            return false;
+        collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);
+        $("#Collections #favorites").html(collectionListHtml)
+        $("#Collections #favorites").trigger("create");
+        $("#collectionList a").click(function(e){
+            displayCollectionList($(this).data("query"))
+            e.preventDefault()
+        })
     }
 });
 
+function displayCollectionList(query){
+    $.mobile.changePage($("#DocumentListing"),null,false,true);
+    documentListHtml = _.template($("#documentListTemplate").html(), {"documents":savedFavorites[query]});
+    $("#DocumentListing div.list").html(documentListHtml);
+    $("#DocumentListing div.list").trigger("create");
+    $("#documentList a").click(function(e){
+        displayDocument(query, $(this).data("paragraphid"))
+        e.preventDefault()
+    })
+}
+
+function displayDocument(query, paragraphID){
+    $.mobile.changePage($("#DocumentView"),null,false,true);
+    $.each(savedFavorites[query],function(key,document){
+        if(document.paragraphID == paragraphID){
+            $("#DocumentView .document").html(document.text)
+            $("#DocumentView .title").html(document.folderTitle+" : "+document.document)
+        }
+    })
+
+}
 // format date, taken from http://stackoverflow.com/questions/9050763/format-date-in-jquery
 function getISODateTime(d){
     // padding function
