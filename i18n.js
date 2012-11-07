@@ -131,7 +131,7 @@ i18n.translateTo = function(string,language){
     }
 }
 i18n.setLanguage = function(language){
-    window.localStorage.getItem("language",language);
+    window.localStorage.setItem("language",language);
 }
 i18n.onPageLoad = function(){
   i18n.currentLanguage = (window.localStorage.getItem("language"))?window.localStorage.getItem("language"):"english";
