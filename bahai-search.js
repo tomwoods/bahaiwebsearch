@@ -167,7 +167,7 @@ $('div').live('pageshow',function(event, ui){
     }
     //internationalization
     i18n.onPageLoad()
-    $("#select-choice-1").val(i18n.currentLanguage)
+    $("#select-choice-1").val(i18n.currentLanguage).selectmenu('refresh');
 });
 
 /**
