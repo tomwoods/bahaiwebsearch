@@ -2,10 +2,11 @@ var currentSearchResults, currentFolder, currentDocumentTitle;
 function startSearch(){
     $.mobile.loading( 'show');
     //fetch data
-    $.ajax(baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=search&q="+encodeURI($("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")),{
+    $.ajax(baseUrl+"/json_searchv2.php?language="+i18n.currentLanguage+"&type=search&q="+encodeURI($("#SearchQuery").val().replace(/^\s+|\s+$/g,"")),{
         //url: ,
         dataType: 'json',
         success: function(data, textStatus, xhr){
+            History.saveSearchHistory()
             $.mobile.loading( 'show');
             //populate folder results page
             currentSearchResults = data;
@@ -111,7 +112,7 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
     Fragment=unescape(Fragment);
     //fetch
     $.get(
-        baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=paragraph&q="+encodeURI($("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""))+"&FoundParagraphID="+FoundParagraphID+"&Fragment="+Fragment,
+        baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=paragraph&q="+encodeURI($("#SearchQuery").val().replace(/^\s+|\s+$/g,""))+"&FoundParagraphID="+FoundParagraphID+"&Fragment="+Fragment,
         function(data){
             $('#FragmentContext').html(data); //update content
             $(".saveFavorite").show(); //show the save to Favorites button
@@ -121,22 +122,24 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
             //go to results page
             $.mobile.changePage($("#FragmentContextPage"),null,false,true);
             //Save to favorites functionality
+            if($(".ptf").length)
+                $.mobile.silentScroll($(".ptf").offset().top);
             $(".saveFavorite").click(function(e){
                 var savedTexts = JSON.parse(window.localStorage.getItem("savedTexts"));
                 if(!savedTexts)
                     savedTexts = {}
-                if(typeof savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")] == "undefined")
-                    savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")] = []
+                if(typeof savedTexts[$("#SearchQuery").val().replace(/^\s+|\s+$/g,"")] == "undefined")
+                    savedTexts[$("#SearchQuery").val().replace(/^\s+|\s+$/g,"")] = []
                 
-                savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")].push({
-                    query:$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,""),
+                savedTexts[$("#SearchQuery").val().replace(/^\s+|\s+$/g,"")].push({
+                    query:$("#SearchQuery").val().replace(/^\s+|\s+$/g,""),
                     text:$('#FragmentContext').html(),
                     paragraphID:FoundParagraphID,
                     date:(new Date()).toString(),
                     folderTitle:currentSearchResults.folders[currentFolderId].title,
                     document:currentDocumentTitle
                 })
-                console.log(savedTexts.length, savedTexts[$("#SearchQuery")[0].value.replace(/^\s+|\s+$/g,"")])
+                
                 window.localStorage.setItem("savedTexts",JSON.stringify(savedTexts));
                 $( "#messagePopup" ).html("Saved!").popup( "open" )
                 setTimeout(function(){$( "#messagePopup" ).delay(1000).popup( "close" )},1000);
@@ -144,26 +147,44 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
                 $(this).hide()
                 e.preventDefault()
             })
-            //$('#FragmentContext').append('<a href="#" data-role="button" data-inline="true" data-theme="b">Save to Favorites</a>');
         }
     );
 }
-/* Favorites Page */
-// on load
+// Run stuff when the page loads
 $('div').live('pageshow',function(event, ui){
     if($("#Collections #favorites").length){//is the favorites page
-        savedFavorites = JSON.parse(window.localStorage.getItem("savedTexts"));
-        if(!savedFavorites)
-            return false;
-        collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);
-        $("#Collections #favorites").html(collectionListHtml)
-        $("#Collections #favorites").trigger("create");
-        $("#collectionList a").click(function(e){
-            displayCollectionList($(this).data("query"))
-            e.preventDefault()
-        })
+        favoritesInit()
     }
+     if($("#History #list").length){//is the History page
+         History.init()
+     }
+     if($("#SearchPage #searchForm").is(":visible")){//is the History page
+         var query = $.parseQuerystring()
+         if(typeof query["q"]!="undefined"){
+             $("#SearchQuery").val(query["q"])
+             startSearch()
+        }
+    }
+    //internationalization
+    i18n.onPageLoad()
+    $("#select-choice-1").val(i18n.currentLanguage)
 });
+
+/**
+ *Favorites
+ */
+function favoritesInit(){
+    savedFavorites = JSON.parse(window.localStorage.getItem("savedTexts"));
+    if(!savedFavorites)
+        return false;
+    collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);
+    $("#Collections #favorites").html(collectionListHtml)
+    $("#Collections #favorites").trigger("create");
+    $("#collectionList a").click(function(e){
+        displayCollectionList($(this).data("query"))
+        e.preventDefault()
+    })
+}
 
 function displayCollectionList(query){
     $.mobile.changePage($("#DocumentListing"),null,false,true);
@@ -182,6 +203,8 @@ function displayDocument(query, paragraphID){
         if(document.paragraphID == paragraphID){
             $("#DocumentView .document").html(document.text)
             $("#DocumentView .title").html(document.folderTitle+" : "+document.document)
+            if($(".ptf").length)
+                setTimeout(function(){$.mobile.silentScroll($(".ptf").offset().top)},500);
         }
     })
 
@@ -204,3 +227,50 @@ function getISODateTime(d){
         s(d.getMinutes(),2) + ':' +
         s(d.getSeconds(),2);
 }
+/**
+ * History
+ */
+History = {
+    "maxSavedSearches":25,
+    "init":function(){
+        savedSearches = JSON.parse(window.localStorage.getItem("savedSearches"));
+        if(!savedSearches)
+            return false;
+        savedSearchesListHtml = _.template($("#savedSearchesListHtmlTemplate").html(), {"savedSearches":savedSearches});
+        $("#History #list").html(savedSearchesListHtml)
+        $("#History #list").trigger("create");
+        $("#savedSearchesList a").click(function(e){
+            window.location.href = "index.html?q="+encodeURI($(this).data("query"))
+            e.preventDefault()
+        })
+    },
+    "saveSearchHistory":function(){
+        savedSearches = JSON.parse(window.localStorage.getItem("savedSearches"));
+        if(!savedSearches)
+            savedSearches = []
+        savedSearches.unshift({
+            query:$("#SearchQuery").val(),
+            date:(new Date()).toString(),
+            language:i18n.currentLanguage
+        })
+        savedSearches = savedSearches.slice(0,this.maxSavedSearches);
+        window.localStorage.setItem("savedSearches",JSON.stringify(savedSearches));
+    }
+}
+
+/**
+ * JQuery Plugins
+ */
+//parse the query string (http://paulgueller.com/2011/04/26/parse-the-querystring-with-jquery/)
+jQuery.extend({
+  parseQuerystring: function(){
+    var nvpair = {};
+    var qs = window.location.search.replace('?', '');
+    var pairs = qs.split('&');
+    $.each(pairs, function(i, v){
+      var pair = v.split('=');
+      nvpair[pair[0]] = pair[1];
+    });
+    return nvpair;
+  }
+});

@@ -21,12 +21,12 @@
 </head> 
 <body> 
 
-<div data-role="page" data-theme="b" id="SearchPage">
+<div data-role="page" data-theme="c" id="SearchPage">
 
-	<div data-role="header">        
+	<div data-role="header" data-theme="c">
 		<h1 style="font-size:14px" class="i18n">Bahá'í Writings <br />Search</h1>
         <div id="popupMenu-popup">
-            <div data-theme="a" id="popupMenu" data-role="popup" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin" data-dismissable="true">
+            <div data-theme="c" id="popupMenu" data-role="popup" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin" data-dismissable="true">
             </div>
         </div>
 	</div><!-- /header -->
@@ -42,7 +42,7 @@
 	</div><!-- /content -->
 
 	<div data-role="footer" data-position="fixed" data-id="navigationFooter">
-       <div data-role="navbar" >
+       <div data-role="navbar" data-theme="c">
             <ul>
                 <li><a href="index.html" data-icon="search" data-theme="c" class="ui-btn-active ui-state-persist">Search</a></li>
                 <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false">Favorites</a></li>
@@ -54,9 +54,9 @@
 </div><!-- /page -->
 
 <!-- Start of results page -->
-<div data-role="page" data-theme="b" id="FoldersPage">
+<div data-role="page" data-theme="c" id="FoldersPage">
 
-	<div data-role="header">            
+	<div data-role="header" data-theme="c">
         <a data-role="button" data-rel="back" data-icon="arrow-l" href="#"  class=" ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Back"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Results</h1>
         <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
@@ -68,12 +68,12 @@
 	</div><!-- /content -->
 
 	<div data-role="footer" data-position="fixed" data-id="navigationFooter">
-       <div data-role="navbar" >
+       <div data-role="navbar" data-theme="c">
             <ul>
                 <li><a href="index.html" data-icon="search" data-theme="c" class="ui-btn-active ui-state-persist">Search</a></li>
                 <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false">Favorites</a></li>
-                <li><a href="history.html" data-icon="back" data-theme="c">Search History</a></li>
-                <li><a href="configuration.html" data-icon="gear" data-theme="c">Configuration</a></li>
+                <li><a href="history.html" data-icon="back" data-theme="c">History</a></li>
+                <li><a href="configuration.html" data-icon="gear" data-theme="c">Config</a></li>
             </ul>
         </div><!-- /navbar -->
 	</div><!-- /footer -->
@@ -82,9 +82,9 @@
 
 
 <!-- Start of results page -->
-<div data-role="page" data-theme="b" id="DocumentsPage">
+<div data-role="page" data-theme="f" id="DocumentsPage">
 
-	<div data-role="header">
+	<div data-role="header" data-theme="c">
         <a data-role="button" data-rel="back" data-icon="arrow-l" href="#"  class=" ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Back"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Documents</h1>
         <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
@@ -96,12 +96,12 @@
 	</div><!-- /content -->
 
 	<div data-role="footer" data-position="fixed" data-id="navigationFooter">
-       <div data-role="navbar" >
+       <div data-role="navbar" data-theme="c">
             <ul>
                 <li><a href="index.html" data-icon="search" data-theme="c" class="ui-btn-active ui-state-persist">Search</a></li>
-                <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false">Favorites</a></li>
-                <li><a href="history.html" data-icon="back" data-theme="c">Search History</a></li>
-                <li><a href="configuration.html" data-icon="gear" data-theme="c">Configuration</a></li>
+                <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false" class="i18n">Favorites</a></li>
+                <li><a href="history.html" data-icon="back" data-theme="c">History</a></li>
+                <li><a href="configuration.html" data-icon="gear" data-theme="c">Config</a></li>
             </ul>
         </div><!-- /navbar -->
 	</div><!-- /footer -->
@@ -110,9 +110,9 @@
 
 
 <!-- Start of results page -->
-<div data-role="page" data-theme="b" id="FragmentsPage">
+<div data-role="page" data-theme="c" id="FragmentsPage">
 
-	<div data-role="header">
+	<div data-role="header" data-theme="c">
         <a data-role="button" data-rel="back" data-icon="arrow-l" href="#"  class=" ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Back"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Sentence</h1>
         <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
@@ -124,12 +124,12 @@
 	</div><!-- /content -->
 
 	<div data-role="footer" data-position="fixed" data-id="navigationFooter">
-       <div data-role="navbar" >
+       <div data-role="navbar" data-theme="c">
             <ul>
                 <li><a href="index.html" data-icon="search" data-theme="c" class="ui-btn-active ui-state-persist">Search</a></li>
-                <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false">Favorites</a></li>
-                <li><a href="history.html" data-icon="back" data-theme="c">Search History</a></li>
-                <li><a href="configuration.html" data-icon="gear" data-theme="c">Configuration</a></li>
+                <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false" class="i18n">Favorites</a></li>
+                <li><a href="history.html" data-icon="back" data-theme="c">History</a></li>
+                <li><a href="configuration.html" data-icon="gear" data-theme="c">Config</a></li>
             </ul>
         </div><!-- /navbar -->
 	</div><!-- /footer -->
@@ -137,9 +137,9 @@
 
 
 <!-- Start of results page -->
-<div data-role="page" data-theme="b" id="FragmentContextPage">
+<div data-role="page" data-theme="c" id="FragmentContextPage">
 
-	<div data-role="header" style="height:2.5em">
+	<div data-role="header" style="height:2.5em" data-theme="c">
         <a data-role="button" data-rel="back" data-icon="arrow-l" href="#"  class=" ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Back"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
 		<h1 style="font-size:12px" class="i18n">Context</h1>
         <a data-direction="reverse" data-iconpos="notext" data-icon="home" href="index.html" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-f" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" title="Home"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>		
@@ -147,7 +147,7 @@
 
     <div data-role="navbar">
         <ul>
-            <li><a href='javascript:void(0)' class='saveFavorite ui-icon-star' data-role='button' data-inline='true' data-theme='a' data-mini="true"  data-iconpos='left' data-icon='star'>Save to Favorites</a></li>
+            <li><a href='javascript:void(0)' class='saveFavorite ui-icon-star' data-role='button' data-inline='true' data-theme="c" data-mini="true"  data-iconpos='left' data-icon='star'>Save to Favorites</a></li>
         </ul>
     </div>
 
@@ -157,12 +157,12 @@
 	</div><!-- /content -->
 
 	<div data-role="footer" data-position="fixed" data-id="navigationFooter">
-       <div data-role="navbar" >
+       <div data-role="navbar" data-theme="c">
             <ul>
                 <li><a href="index.html" data-icon="search" data-theme="c" class="ui-btn-active ui-state-persist">Search</a></li>
-                <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false">Favorites</a></li>
-                <li><a href="history.html" data-icon="back" data-theme="c">Search History</a></li>
-                <li><a href="configuration.html" data-icon="gear" data-theme="c">Configuration</a></li>
+                <li><a href="favorites.html" data-icon="star" data-theme="c" data-ajax="false" class="i18n">Favorites</a></li>
+                <li><a href="history.html" data-icon="back" data-theme="c">History</a></li>
+                <li><a href="configuration.html" data-icon="gear" data-theme="c">Config</a></li>
             </ul>
         </div><!-- /navbar -->
 	</div><!-- /footer -->

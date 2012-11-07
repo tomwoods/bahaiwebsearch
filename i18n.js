@@ -5,10 +5,6 @@
  * Then add the text to be translated to each of the available languates.
  */
 // handle page load
-$('div').live('pageshow',function(event, ui){
-    i18n.onPageLoad()
-    $("#select-choice-1").val(i18n.currentLanguage)
-});
 //Internationalization Functions
 var i18n = {}
 i18n.strings = {}
@@ -33,7 +29,9 @@ i18n.strings["spanish"] = {
     "Documents":"Documentos",
     "Sorry, no results where found.":"No se encontraron resultados.",
     "Configuration":"Configuración",
+    "Config":"Config",
     "Favorites":"Favoritos",
+    "History":"Historial",
     "Search History":"Historial de Búsquedas"
 };
 i18n.strings["english"] = {
@@ -51,7 +49,9 @@ i18n.strings["english"] = {
     "Documents":"Documents",
     "Sorry, no results where found.":"Sorry, no results where found.",
     "Configuration":"Configuration",
+    "Config":"Config",
     "Favorites":"Favorites",
+    "History":"History",
     "Search History":"Search History"
 };
 i18n.strings["german"] = {
@@ -69,21 +69,25 @@ i18n.strings["german"] = {
     "Documents": "Dokumente",
     "Sorry, no results where found.": "Sorry, keine Suchergebnisse gefunden.",
     "Configuration":"Konfiguration",
+    "Config":"Konfig",
     "Favorites":"Favoriten",
+    "History":"Geschichte",
     "Search History":"Suchverlauf"
 };
-i18n.dynamicElements[0] = function(){
-    if(typeof $("#searchForm a")[1]!="undefined")
+i18n.dynamicElements.push(
+    function(){
+        if(typeof $("#searchForm a")[1]!="undefined")
         return $("#searchForm a")[1].childNodes[0].childNodes[0].childNodes[0];
-}
-i18n.dynamicElements[1] = function(){
-    if(typeof $(".ui-header .ui-btn-left span span")[0]!="undefined")
-        return $(".ui-header .ui-btn-left span span")[0];
-}
-i18n.dynamicElements[1] = function(){
-    if(typeof $("#searchForm .ui-btn-inner .ui-btn-text")[1]!="undefined")
-        return $("#searchForm .ui-btn-inner .ui-btn-text")[1];
-}
+    },function(){
+        if(typeof $(".ui-header .ui-btn-left span span")[0]!="undefined")
+            return $(".ui-header .ui-btn-left span span")[0];
+    },function(){
+        if(typeof $("#searchForm .ui-btn-inner .ui-btn-text")[1]!="undefined")
+            return $("#searchForm .ui-btn-inner .ui-btn-text")[1];
+    },function(){
+        if(typeof $(".ui-navbar .ui-btn-text").length)
+            return $(".ui-navbar .ui-btn-text");
+    });
 
 i18n.elementTranslation = function(element,language){
     if(
@@ -106,7 +110,13 @@ i18n.translateAllTo = function(language){
     });
     $.each(i18n.dynamicElements,function(key,func){
         element = func();
-        if(typeof element != "undefined")
+        //support for jquery object as a dynamic element
+        if(element instanceof jQuery){
+            $.each(element,function(index,jqueryElm){
+                i18n.elementTranslation(jqueryElm,language)
+            })
+        }
+        else if(typeof element != "undefined")
             i18n.elementTranslation(element,language)
     });
 }
@@ -122,14 +132,8 @@ i18n.translateTo = function(string,language){
 }
 i18n.onPageLoad = function(){
   i18n.currentLanguage = (window.localStorage.getItem("language"))?window.localStorage.getItem("language"):"english";
-  setLanguage(i18n.currentLanguage);
+  i18n.translateAllTo(i18n.currentLanguage)
 }
 i18n.__ = function(string,language){
     return i18n.translateTo(string,language);
-}
-//Switch Languages
-function setLanguage(language){
-    currentLanguage = i18n.currentLanguage = language;
-    window.localStorage.setItem("language", language);
-    i18n.translateAllTo(language)
 }

@@ -1,7 +1,19 @@
+@font-face {
+    font-family: "OpenSans Regular";
+    src: url(fonts/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: "Sanchez Regular";
+    src: url(fonts/Sanchez-Regular.ttf);
+}
 .ptf{
     background-color:#E6E6E6;
     padding: 7px;
     border-left: #CFCFCF solid 3px;
+}
+#FragmentContext,.document{
+    font-family:"Sanchez Regular",Helvetica,sans-serif;
+    color:#4D4447;
 }
 .foundterm{
     background-color:#FAFFBF;
@@ -26,4 +38,11 @@ p{
 }
 #DocumentView .ui-content{
     background-color:white;
+    color:black;
+}
+.ui-header{
+    background-image: url(images/star.png);
+    background-repeat: no-repeat;
+    background-position-x: 48%;
+    background-position-y: -8px;
 }
