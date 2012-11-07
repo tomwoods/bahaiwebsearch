@@ -160,9 +160,8 @@ $('div').live('pageshow',function(event, ui){
      }
      if($("#SearchPage #searchForm").is(":visible")){//is the History page
          var query = $.parseQuerystring()
-         if(typeof query["q"]!="undefined" && History.hasBeenRun == false){
+         if(typeof query["q"]!="undefined" &&  !$("#SearchQuery").val().length){
              $("#SearchQuery").val(query["q"])
-             History.hasBeenRun = true;
              startSearch()
         }
     }
@@ -233,7 +232,6 @@ function getISODateTime(d){
  */
 History = {
     "maxSavedSearches":25,
-    "hasBeenRun":false,
     "init":function(){
         savedSearches = JSON.parse(window.localStorage.getItem("savedSearches"));
         if(!savedSearches)
