@@ -30,7 +30,7 @@
 
 	<div data-role="content">
         <label for="select-choice-1" class="select i18n">Language</label>
-		<select name="select-choice-1" id="select-choice-1" onchange="setLanguage(this.value)">
+		<select name="select-choice-1" id="select-choice-1" onchange="i18n.setLanguage(this.value);i18n.translateAllTo(this.value)">
             <option value="english">English</option>
             <option value="spanish">Español</option>
             <option value="german">Deutsch</option>

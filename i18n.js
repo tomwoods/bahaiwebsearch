@@ -130,6 +130,9 @@ i18n.translateTo = function(string,language){
         return i18n.strings[language][string]
     }
 }
+i18n.setLanguage = function(language){
+    window.localStorage.getItem("language",language);
+}
 i18n.onPageLoad = function(){
   i18n.currentLanguage = (window.localStorage.getItem("language"))?window.localStorage.getItem("language"):"english";
   i18n.translateAllTo(i18n.currentLanguage)
