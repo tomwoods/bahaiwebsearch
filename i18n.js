@@ -36,7 +36,8 @@ i18n.strings["spanish"] = {
     "Config":"Config",
     "Favorites":"Favoritos",
     "History":"Historial",
-    "Search History":"Historial de Búsquedas"
+    "Search History":"Historial de Búsquedas",
+    "Save to Favorites":"Guardar a Favoritos"
 };
 i18n.strings["english"] = {
     "Search for a word or phrase:":"Search for a word or phrase:",
@@ -56,7 +57,8 @@ i18n.strings["english"] = {
     "Config":"Config",
     "Favorites":"Favorites",
     "History":"History",
-    "Search History":"Search History"
+    "Search History":"Search History",
+    "Save to Favorites":"Save to Favorites"
 };
 i18n.strings["german"] = {
     "Search for a word or phrase:": "Nach einem Wort oder Satz suchen:",
@@ -76,7 +78,8 @@ i18n.strings["german"] = {
     "Config":"Konfig",
     "Favorites":"Favoriten",
     "History":"Geschichte",
-    "Search History":"Suchverlauf"
+    "Search History":"Suchverlauf",
+    "Save to Favorites":"Zu den Favoriten"
 };
 i18n.dynamicElements.push(
     function(){
