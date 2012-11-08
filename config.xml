@@ -7,7 +7,7 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Bahá'í Web Search</name>
+    <name>Bahai Web Search</name>
 
     <description>
 Search the Bahá'í Texts and Holy Writings in both English and Spanish.
@@ -22,5 +22,6 @@ The Bahá'í Research service offers the following description: "The content is 
     <author href="http://about.me/thomaswoodard" email="tommywoods@gmail.com">
         Thomas Woodard
     </author>
+    <access origin="http://phonegap.com" subdomains="true" />
 
 </widget>
