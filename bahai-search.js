@@ -112,7 +112,7 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
     Fragment=unescape(Fragment);
     //fetch
     $.get(
-        baseUrl+"/json_searchv2.php?language="+currentLanguage+"&type=paragraph&q="+encodeURI($("#SearchQuery").val().replace(/^\s+|\s+$/g,""))+"&FoundParagraphID="+FoundParagraphID+"&Fragment="+Fragment,
+        baseUrl+"/json_searchv2.php?language="+i18n.currentLanguage+"&type=paragraph&q="+encodeURI($("#SearchQuery").val().replace(/^\s+|\s+$/g,""))+"&FoundParagraphID="+FoundParagraphID+"&Fragment="+Fragment,
         function(data){
             $('#FragmentContext').html(data); //update content
             $(".saveFavorite").show(); //show the save to Favorites button
