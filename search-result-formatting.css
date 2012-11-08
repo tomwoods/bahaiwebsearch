@@ -6,6 +6,22 @@
     font-family: "Sanchez Regular";
     src: url(fonts/Sanchez-Regular.ttf);
 }
+.ui-page {
+    -webkit-backface-visibility: hidden;
+}
+.x-panel {
+-webkit-perspective: 1000;
+-webkit-backface-visibility: hidden;
+}
+.ui-mobile {
+background:#145867
+}
+.ui-mobile-viewport {
+background:#145867
+}
+.ui-page {
+background:#145867
+}
 .ptf{
     background-color:#E6E6E6;
     padding: 7px;
