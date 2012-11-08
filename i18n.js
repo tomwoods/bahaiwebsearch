@@ -11,7 +11,11 @@ i18n.strings = {}
 i18n.dynamicElements = []//elements that cause trouble, functions that return the element
 i18n.strings["original"] = {}
 //Get/Set Language from storage
-i18n.currentLanguage = (window.localStorage.getItem("language"))?window.localStorage.getItem("language"):"english";
+if(window.localStorage.getItem("language")){
+    i18n.currentLanguage = window.localStorage.getItem("language");
+}else{
+    i18n.currentLanguage = (navigator.language.indexOf("es")==0)?"spanish":"english";
+}
 
 //Settings
 i18n.strings["spanish"] = {
