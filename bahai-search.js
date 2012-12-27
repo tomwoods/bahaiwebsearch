@@ -151,23 +151,16 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
     );
 }
 // Run stuff when the page loads
-$('div').live('pageshow',function(event, ui){
-    if($("#Collections #favorites").length){//is the favorites page
+$('div').live('pageshow',function(event, ui){    
+    if(window.location.hash == "#Favorites"){//is the favorites page
         favoritesInit()
     }
-     if($("#History #list").length){//is the History page
+     if(window.location.hash == "#History"){//is the History page
          History.init()
      }
-     if($("#SearchPage #searchForm").is(":visible")){//is the History page
-         var query = $.parseQuerystring()
-         if(typeof query["q"]!="undefined" &&  !$("#SearchQuery").val().length){
-             $("#SearchQuery").val(query["q"])
-             startSearch()
-        }
-    }
     //internationalization
     i18n.onPageLoad()
-    $("#select-choice-1").val(i18n.currentLanguage).selectmenu('refresh');
+    $("#select-choice-1").val(i18n.currentLanguage).selectmenu().selectmenu('refresh');
 });
 
 /**
@@ -177,9 +170,9 @@ function favoritesInit(){
     savedFavorites = JSON.parse(window.localStorage.getItem("savedTexts"));
     if(!savedFavorites)
         return false;
-    collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);
-    $("#Collections #favorites").html(collectionListHtml)
-    $("#Collections #favorites").trigger("create");
+    collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);console.log(collectionListHtml);
+    $("#Favorites #favorites").html(collectionListHtml)
+    $("#Favorites #favorites").trigger("create");
     $("#collectionList a").click(function(e){
         displayCollectionList($(this).data("query"))
         e.preventDefault()
@@ -240,7 +233,9 @@ History = {
         $("#History #list").html(savedSearchesListHtml)
         $("#History #list").trigger("create");
         $("#savedSearchesList a").click(function(e){
-            window.location.href = "index.html?q="+encodeURI($(this).data("query"))
+            $.mobile.changePage($("#SearchPage"),null,false,true);
+            $("#SearchQuery").val($(this).data("query"))
+            startSearch()
             e.preventDefault()
         })
     },
