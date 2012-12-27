@@ -40,9 +40,8 @@ function startSearch(){
             $('#FoldersContent').html(ResultsContentHtml).ready(function(){
                 //go to results page
                 $.mobile.changePage($("#FoldersPage"),{
-                    allowSamePageTransition:true,
                     showLoadMsg:true
-                },false,true);
+                });
                 //hide loading
                 $.mobile.hidePageLoadingMsg();
             });
@@ -58,7 +57,7 @@ function displayDocumentsFor(FolderId){
     ResultsContentHtml += "</ul>";
     $('#DocumentsContent').html(ResultsContentHtml);
     //go to results page
-    $.mobile.changePage($("#DocumentsPage"),null,false,true);
+    $.mobile.changePage($("#DocumentsPage"));
 }
 function contentForDocuments(document){
     fragmentText = '';
@@ -104,7 +103,7 @@ function displayMatchesFor(documentTitle,DocumentId){
     ResultsContentHtml += "</ul>";
     $('#FragmentsContent').html(ResultsContentHtml);
     //go to results page
-    $.mobile.changePage($("#FragmentsPage"),null,false,true);
+    $.mobile.changePage($("#FragmentsPage"));
 }
 function loadContext(documentTitle,FoundParagraphID,Fragment){
     currentDocumentTitle = unescape(documentTitle)
@@ -120,7 +119,7 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
             //hide loading
             $.mobile.hidePageLoadingMsg()
             //go to results page
-            $.mobile.changePage($("#FragmentContextPage"),null,false,true);
+            $.mobile.changePage($("#FragmentContextPage"));
             //Save to favorites functionality
             if($(".ptf").length)
                 $.mobile.silentScroll($(".ptf").offset().top);
@@ -180,7 +179,7 @@ function favoritesInit(){
 }
 
 function displayCollectionList(query){
-    $.mobile.changePage($("#DocumentListing"),null,false,true);
+    $.mobile.changePage($("#DocumentListing"));
     documentListHtml = _.template($("#documentListTemplate").html(), {"documents":savedFavorites[query]});
     $("#DocumentListing div.list").html(documentListHtml);
     $("#DocumentListing div.list").trigger("create");
@@ -191,7 +190,7 @@ function displayCollectionList(query){
 }
 
 function displayDocument(query, paragraphID){
-    $.mobile.changePage($("#DocumentView"),null,false,true);
+    $.mobile.changePage($("#DocumentView"));
     $.each(savedFavorites[query],function(key,document){
         if(document.paragraphID == paragraphID){
             $("#DocumentView .document").html(document.text)
@@ -233,7 +232,7 @@ History = {
         $("#History #list").html(savedSearchesListHtml)
         $("#History #list").trigger("create");
         $("#savedSearchesList a").click(function(e){
-            $.mobile.changePage($("#SearchPage"),null,false,true);
+            $.mobile.changePage($("#SearchPage"));
             $("#SearchQuery").val($(this).data("query"))
             startSearch()
             e.preventDefault()
