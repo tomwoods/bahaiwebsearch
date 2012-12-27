@@ -49,3 +49,6 @@ p{
 .ui-mobile, .ui-mobile body {
     height: 100% !important;
 }
+.header {position:fixed;z-index:10;top:0;width:100%}
+.content {padding:45px 15px}
+.footer {position:fixed;z-index:10;bottom:0;width:100%}
