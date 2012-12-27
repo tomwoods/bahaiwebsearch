@@ -23,5 +23,7 @@ The Bahá'í Research service offers the following description: "The content is 
         Thomas Woodard
     </author>
     <access origin="http://phonegap.com" subdomains="true" />
+    <preference name="permissions" value="none"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
 
 </widget>
