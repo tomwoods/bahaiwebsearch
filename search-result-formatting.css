@@ -46,3 +46,6 @@ p{
     background-position-x: 48%;
     background-position-y: -8px;
 }
+.ui-mobile, .ui-mobile body {
+    height: 100% !important;
+}

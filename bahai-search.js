@@ -169,7 +169,7 @@ function favoritesInit(){
     savedFavorites = JSON.parse(window.localStorage.getItem("savedTexts"));
     if(!savedFavorites)
         return false;
-    collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);console.log(collectionListHtml);
+    collectionListHtml = _.template($("#collectionListTemplate").html(), savedFavorites);
     $("#Favorites #favorites").html(collectionListHtml)
     $("#Favorites #favorites").trigger("create");
     $("#collectionList a").click(function(e){
