@@ -4,8 +4,14 @@ $types = array("search"=>"search","paragraph"=>"paragraph","document"=>"document
 $language = $lanugages[$_GET["language"]];
 $type = $types[$_GET["type"]];
 $query = $_GET["q"];
+include "Stash/Pool.php";
+include "Stash/Utilities.php";
+include "Stash/Item.php";
+include "Stash/Driver/DriverInterface.php";
+include "Stash/Driver/FileSystem.php";
 
 function getCurl($url){
+
     $ch = curl_init( $url );
     curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt( $ch, CURLOPT_HEADER, true );
@@ -15,6 +21,28 @@ function getCurl($url){
     $status = curl_getinfo( $ch );
     curl_close( $ch );
     return $searchResults;
+}
+function getCached($url){
+    // Uses a install specific default path if none is passed.
+    $driver = new Stash\Driver\FileSystem();
+    // Setting a custom path is done by passing an options array to the constructor.
+    $options = array('path' => 'tmp/');
+    $driver = new Stash\Driver\FileSystem($options);
+
+    $pool = new Stash\Pool($driver);
+    $stashItem = $pool->getItem(md5($url));
+    $data = $stashItem->get();
+
+    if($stashItem->isMiss()){
+        // Run intensive code
+        $data = getCurl($url);
+
+        // Store data.
+        $stashItem->set($data);
+    }
+
+    // Continue as normal.
+    return $data;
 }
 function extraer_texto($pre,$post,$str){
 	$pos = strpos($str,$pre);
@@ -41,7 +69,7 @@ function pregxtract($pre,$post,$str,$length="{1,30}"){
 if(empty($type)||$type=="search"){
     $url = "http://bahairesearch.com/Services/Rest.svc/search/$language/baha'i?q=".urlencode($query);
     header( 'Content-type: application/' . ( $is_xhr ? 'json' : 'x-javascript' ) );
-    $searchResults = getCurl($url);
+    $searchResults = getCached($url);
     
     ///Fast and Dirty Method 
     require_once("xml2json.php");
@@ -79,7 +107,7 @@ if(empty($type)||$type=="search"){
     $fragment = urlencode(base64_decode($_GET["Fragment"]));
     $query = urlencode($query);
     $url = "http://bahairesearch.com/Services/Rest.svc/Document/$language/{$_GET["FoundParagraphID"]}?q=$query&Fragment=$fragment";
-    $searchResults = getCurl($url);
+    $searchResults = getCached($url);
     //Get the specific Paragraph
     //$searchResults = html_entity_decode(extraer_texto("&lt;div class='ptf'&gt;","&lt;/div&gt;",$searchResults));
     
