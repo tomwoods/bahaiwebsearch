@@ -46,6 +46,9 @@ function startSearch(){
                 $.mobile.hidePageLoadingMsg();
             });
         }
+    }).fail(function(){
+        $.mobile.hidePageLoadingMsg();
+        alert("There has been a error connecting to the server. Please make sure you are connected and if the issue persist, please contact the developer.");
     });
 }
 function displayDocumentsFor(FolderId){
@@ -150,7 +153,12 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
     );
 }
 // Run stuff when the page loads
-$('div').live('pageshow',function(event, ui){    
+$('div').live('pageshow',function(event, ui){
+    if(window.location.hash == ""){
+        $.ajax(baseUrl+"/connection_test.html").error(function(){
+            alert("Unable to connect to server. This application requires a working internet connection.");
+        });
+    }
     if(window.location.hash == "#Favorites"){//is the favorites page
         favoritesInit()
     }
