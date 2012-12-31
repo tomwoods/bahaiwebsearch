@@ -155,9 +155,7 @@ function loadContext(documentTitle,FoundParagraphID,Fragment){
 // Run stuff when the page loads
 $('div').live('pageshow',function(event, ui){
     if(window.location.hash == ""){
-        $.ajax(baseUrl+"/connection_test.html").error(function(){
-            alert("Unable to connect to server. This application requires a working internet connection.");
-        });
+        checkConnection();
     }
     if(window.location.hash == "#Favorites"){//is the favorites page
         favoritesInit()
@@ -169,6 +167,19 @@ $('div').live('pageshow',function(event, ui){
     i18n.onPageLoad()
     $("#select-choice-1").val(i18n.currentLanguage).selectmenu().selectmenu('refresh');
 });
+
+/**
+ *Check connection
+ */
+function checkConnection(){
+    $.ajax(baseUrl+"/connection_test.html").error(function(){
+            $("#searchForm").hide();
+            $("#connectionErrorMessage").show();
+        }).done(function(){
+            $("#searchForm").show();
+            $("#connectionErrorMessage").hide();
+        });
+}
 
 /**
  *Favorites
